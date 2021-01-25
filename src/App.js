@@ -5,6 +5,7 @@ import { useState } from 'react'
 
 
 const App = () => {
+  const [showAddTask, setShowAddTask] = useState(false)
   //state is Immutable so you can't do something like tasks.push().  Its one way data.  For this case you will use setTAsks
   //EX) setTasks([...tasks, {}])
   const [tasks, setTasks] = useState([
@@ -40,8 +41,8 @@ const App = () => {
   }
   return (
     <div className="container">
-      <Header />
-      <AddTask onAdd={addTask}/>
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+      {showAddTask && <AddTask onAdd={addTask}/>}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/> : 'No Tasks to Show'}
     </div>
   );
